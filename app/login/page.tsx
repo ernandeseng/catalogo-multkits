@@ -32,7 +32,14 @@ export default function LoginPage() {
             });
 
             if (authError) {
-                throw new Error('Credenciais incorretas.');
+                console.error('Login error:', authError);
+                if (authError.message === 'Invalid login credentials') {
+                    throw new Error('E-mail ou senha incorretos.');
+                } else if (authError.message.includes('Email not confirmed')) {
+                    throw new Error('Por favor, confirme seu e-mail antes de entrar.');
+                } else {
+                    throw new Error(authError.message);
+                }
             }
 
             if (!authData.user) {
