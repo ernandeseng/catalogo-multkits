@@ -57,21 +57,8 @@ export default function SignupPage() {
             if (authData.user) {
                 const new_user_id = authData.user.id;
 
-                // C. Insert profile
-                const { error: profileError } = await supabase
-                    .from('users_profile')
-                    .insert({
-                        id: new_user_id,
-                        full_name: fullName,
-                        email: email,
-                        status: 'pending',
-                    });
-
-                if (profileError) {
-                    // If profile creation fails, we might want to clean up the user or just show an error.
-                    // For now, let's show the error.
-                    throw new Error(`Erro ao criar perfil: ${profileError.message}`);
-                }
+                // C. Profile creation is now handled by a database trigger (handle_new_user)
+                // We don't need to manually insert into users_profile here.
 
                 // Redirect to confirmation screen
                 router.push('/cadastro-recebido');
