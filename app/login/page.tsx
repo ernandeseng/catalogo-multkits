@@ -115,7 +115,7 @@ export default function LoginPage() {
                     // Let's allow for now but log it.
                 }
 
-                router.push('/app/home');
+                router.push('/catalogo');
             } else {
                 await supabase.auth.signOut();
                 setError('Status da conta desconhecido.');
