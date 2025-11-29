@@ -9,6 +9,8 @@ import { Loader2 } from 'lucide-react';
 export default function SignupPage() {
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
+    const [document, setDocument] = useState('');
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -23,6 +25,16 @@ export default function SignupPage() {
         // Validations
         if (!fullName.trim()) {
             setError('Nome completo é obrigatório.');
+            setLoading(false);
+            return;
+        }
+        if (!document.trim()) {
+            setError('CPF ou CNPJ é obrigatório.');
+            setLoading(false);
+            return;
+        }
+        if (!phone.trim()) {
+            setError('Celular é obrigatório.');
             setLoading(false);
             return;
         }
@@ -46,6 +58,8 @@ export default function SignupPage() {
                 options: {
                     data: {
                         full_name: fullName,
+                        document: document,
+                        phone: phone,
                     },
                 },
             });
@@ -85,8 +99,8 @@ export default function SignupPage() {
                     </p>
                 </div>
                 <form className="mt-8 space-y-6" onSubmit={handleSignup}>
-                    <div className="rounded-md shadow-sm -space-y-px">
-                        <div className="mb-4">
+                    <div className="rounded-md shadow-sm space-y-4">
+                        <div>
                             <label htmlFor="full-name" className="block text-sm font-medium text-gray-700 mb-1">
                                 Nome Completo
                             </label>
@@ -101,7 +115,40 @@ export default function SignupPage() {
                                 placeholder="Seu nome completo"
                             />
                         </div>
-                        <div className="mb-4">
+
+                        <div>
+                            <label htmlFor="document" className="block text-sm font-medium text-gray-700 mb-1">
+                                CPF ou CNPJ
+                            </label>
+                            <input
+                                id="document"
+                                name="document"
+                                type="text"
+                                required
+                                value={document}
+                                onChange={(e) => setDocument(e.target.value)}
+                                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                placeholder="000.000.000-00"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                                Celular
+                            </label>
+                            <input
+                                id="phone"
+                                name="phone"
+                                type="tel"
+                                required
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                placeholder="(00) 00000-0000"
+                            />
+                        </div>
+
+                        <div>
                             <label htmlFor="email-address" className="block text-sm font-medium text-gray-700 mb-1">
                                 E-mail
                             </label>
@@ -117,7 +164,7 @@ export default function SignupPage() {
                                 placeholder="seu@email.com"
                             />
                         </div>
-                        <div className="mb-4">
+                        <div>
                             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                                 Senha
                             </label>
@@ -133,7 +180,7 @@ export default function SignupPage() {
                                 placeholder="Mínimo 8 caracteres"
                             />
                         </div>
-                        <div className="mb-4">
+                        <div>
                             <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-1">
                                 Confirmar Senha
                             </label>
