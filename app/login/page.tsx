@@ -80,24 +80,13 @@ export default function LoginPage() {
             }
 
             if (user_status === 'approved') {
-                // C. Check Active Session
+                // C. Active Session Management (Kick Strategy)
+                // We simply upsert the session with the new device ID.
+                // This will invalidate any previous session on another device because
+                // the 'device_id' in the database will no longer match the other device's ID.
+
                 const deviceId = getDeviceId();
                 if (!deviceId) throw new Error('Erro ao identificar dispositivo.');
-
-                const { data: sessionData, error: sessionError } = await supabase
-                    .from('active_sessions')
-                    .select('*')
-                    .eq('user_id', current_user_id)
-                    .single();
-
-                // If session exists
-                if (sessionData) {
-                    if (sessionData.device_id !== deviceId && sessionData.is_active) {
-                        await supabase.auth.signOut();
-                        setError('Seu login já está ativo em outro dispositivo. Encerre a outra sessão para entrar.');
-                        return;
-                    }
-                }
 
                 // Create or Update Session
                 const { error: upsertError } = await supabase
