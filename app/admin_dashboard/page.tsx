@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Loader2, Check, X, LogOut, Package } from 'lucide-react';
 
 const ADMIN_ID = process.env.NEXT_PUBLIC_ADMIN_ID;
-const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'multkitsbrasil@gmail.com';
+const ADMIN_EMAIL = 'multkitsbrasil@gmail.com';
 
 type UserProfile = {
     id: string;

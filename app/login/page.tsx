@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { Loader2, Lock, ShieldCheck } from 'lucide-react';
 import { getDeviceId } from '@/lib/device';
 
-const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || 'multkitsbrasil@gmail.com';
+const ADMIN_EMAIL = 'multkitsbrasil@gmail.com';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
