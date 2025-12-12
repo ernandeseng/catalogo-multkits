@@ -65,11 +65,22 @@ export default function AdminDashboard() {
 
             if (error) throw error;
 
-            await fetchUsers();
-            alert(newStatus === 'approved' ? 'Usuário aprovado com sucesso!' : 'Usuário rejeitado.');
+            // Update local state immediately to remove the user from the list
+            setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+
+            // Optional: You can still fetch from server to be 100% sure, but local update is faster for UI
+            // await fetchUsers(); 
+
+            // Short delay to allow UI to update before alert (if alert is blocking)
+            setTimeout(() => {
+                alert(newStatus === 'approved' ? 'Usuário aprovado com sucesso!' : 'Usuário rejeitado.');
+            }, 100);
+
         } catch (error) {
             console.error('Error updating status:', error);
             alert('Erro ao atualizar status do usuário.');
+            // If error, refresh list to ensure consistency
+            fetchUsers();
         } finally {
             setActionLoading(null);
         }
