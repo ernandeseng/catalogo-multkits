@@ -14,7 +14,8 @@ import {
     Loader2,
     Image as ImageIcon,
     LayoutGrid,
-    Package
+    Package,
+    Eye
 } from 'lucide-react';
 
 const ADMIN_ID = process.env.NEXT_PUBLIC_ADMIN_ID;
@@ -201,6 +202,14 @@ export default function AdminPage() {
                     </div>
 
                     <div className="flex gap-2">
+                        <button
+                            onClick={() => window.open('/', '_blank')}
+                            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors mr-2"
+                            title="Ver Loja"
+                        >
+                            <Eye size={20} />
+                            <span className="hidden sm:inline">Ver Loja</span>
+                        </button>
                         <button
                             onClick={() => setActiveTab('products')}
                             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'products'

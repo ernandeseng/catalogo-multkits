@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/db';
 import { useRouter } from 'next/navigation';
-import { Loader2, Check, X, LogOut, Package } from 'lucide-react';
+import { Loader2, Check, X, LogOut, Package, Eye } from 'lucide-react';
 
 const ADMIN_ID = process.env.NEXT_PUBLIC_ADMIN_ID;
 const ADMIN_EMAIL = 'multkitsbrasil@gmail.com';
@@ -105,6 +105,13 @@ export default function AdminDashboard() {
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-900">Painel Administrativo</h1>
                     <div className="flex gap-4">
+                        <button
+                            onClick={() => window.open('/', '_blank')}
+                            className="flex items-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
+                        >
+                            <Eye className="h-4 w-4 mr-2" />
+                            Ver Loja
+                        </button>
                         <button
                             onClick={() => router.push('/admin')}
                             className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"

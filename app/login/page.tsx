@@ -58,13 +58,42 @@ export default function LoginPage() {
             }
 
             // B. Check User Status (Normal User)
-            const { data: profileData, error: profileError } = await supabase
+            let { data: profileData, error: profileError } = await supabase
                 .from('users_profile')
                 .select('status')
                 .eq('id', current_user_id)
                 .single();
 
+            // Self-healing: Create profile if it doesn't exist
+            if (profileError && profileError.code === 'PGRST116') {
+                console.log('Perfil não encontrado, criando perfil...');
+                const metadata = authData.user.user_metadata || {};
+
+                // For the main admin email, auto-approve
+                const isMainAdmin = authData.user.email === ADMIN_EMAIL;
+                const initialStatus = isMainAdmin ? 'approved' : 'pending';
+
+                const { error: insertError } = await supabase
+                    .from('users_profile')
+                    .insert({
+                        id: current_user_id,
+                        full_name: metadata.full_name || 'Usuário',
+                        email: authData.user.email,
+                        status: initialStatus
+                    });
+
+                if (insertError) {
+                    console.error('Erro ao criar perfil:', insertError);
+                    throw new Error('Erro ao criar perfil de usuário. Tente novamente.');
+                }
+
+                // Update local variable to proceed
+                profileData = { status: initialStatus };
+                profileError = null;
+            }
+
             if (profileError) {
+                console.error('Erro perfil:', profileError);
                 throw new Error('Erro ao verificar perfil do usuário.');
             }
 
