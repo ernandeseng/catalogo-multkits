@@ -203,7 +203,7 @@ export default function AdminPage() {
 
                     <div className="flex gap-2">
                         <button
-                            onClick={() => window.open('/', '_blank')}
+                            onClick={() => window.open('/catalogo', '_blank')}
                             className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors mr-2"
                             title="Ver Loja"
                         >

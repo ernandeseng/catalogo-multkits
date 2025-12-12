@@ -106,7 +106,7 @@ export default function AdminDashboard() {
                     <h1 className="text-3xl font-bold text-gray-900">Painel Administrativo</h1>
                     <div className="flex gap-4">
                         <button
-                            onClick={() => window.open('/', '_blank')}
+                            onClick={() => window.open('/catalogo', '_blank')}
                             className="flex items-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
                         >
                             <Eye className="h-4 w-4 mr-2" />
